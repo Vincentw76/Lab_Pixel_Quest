@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 public class GeoController : MonoBehaviour
 {
     Rigidbody2D rb;
+    public int speed = 5;
+    public string nextLevel = "Scene_2";
 
 
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.tag)
         {
@@ -18,9 +20,13 @@ public class GeoController : MonoBehaviour
                     SceneManager.LoadScene(thislevel);
                     break;
                 }
+            case "Finish":
+                {
+                    SceneManager.LoadScene(nextLevel);
+                    break;
+                }
         }
     }
-    public int speed;
     // Start is called before the first frame update
     void Start()
     {
