@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GeoController : MonoBehaviour
 {
@@ -39,12 +40,10 @@ public class GeoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xInput = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(xInput * speed, rb.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            rb.velocity = new Vector2(1, rb.velocity.y);
+            transform.position += new Vector3(1, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -52,7 +51,7 @@ public class GeoController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
-            rb.velocity = new Vector2(-1, rb.velocity.y);
+            transform.position += new Vector3(-1, 0, 0);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
