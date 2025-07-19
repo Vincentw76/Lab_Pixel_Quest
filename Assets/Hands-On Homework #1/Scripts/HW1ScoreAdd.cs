@@ -39,7 +39,10 @@ public class HW1ScoreAdd : MonoBehaviour
     {
         textMeshPro.text = "+" + i;
     }
-
+ public void SetValueSub(int i)
+    {
+        textMeshPro.text = "-" + i;
+    }
     //Destroys the object after Invoked by Start Method  
     private void Death()
     {
