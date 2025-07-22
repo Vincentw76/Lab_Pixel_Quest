@@ -42,5 +42,13 @@ public class HW2PlayerShoot : MonoBehaviour
 
             _canShoot = false;
         }
+        if (Input.GetKeyDown(KeyCode.Mouse1) && _canShoot)
+        {
+            GameObject bullet = Instantiate(preFab, bulletSpawn.position, Quaternion.identity);
+
+            bullet.transform.SetParent(bulletTrash);
+
+            _canShoot = false;
+        }
     }
 }
