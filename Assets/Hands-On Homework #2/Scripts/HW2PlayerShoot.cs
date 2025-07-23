@@ -3,6 +3,7 @@ using UnityEngine;
 public class HW2PlayerShoot : MonoBehaviour
 {
     public GameObject preFab;
+    public GameObject preFab2;
     public Transform bulletTrash;
     public Transform bulletSpawn;
 
@@ -44,7 +45,7 @@ public class HW2PlayerShoot : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Mouse1) && _canShoot)
         {
-            GameObject bullet = Instantiate(preFab, bulletSpawn.position, Quaternion.identity);
+            GameObject bullet = Instantiate(preFab2, bulletSpawn.position, Quaternion.identity);
 
             bullet.transform.SetParent(bulletTrash);
 

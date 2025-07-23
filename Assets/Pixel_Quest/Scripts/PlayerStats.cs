@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
-    public string nextLevel = "Scene_2";
+    public Transform RespawnPoint;
     // Start is called before the first frame update
     public int coinCount = 0;
     public int _health = 3;
@@ -15,12 +15,21 @@ public class PlayerStats : MonoBehaviour
         {
             case "Death":
                 {
-                    string thislevel = SceneManager.GetActiveScene().name;
-                    SceneManager.LoadScene(thislevel);
-                    break;
+                    _health--;
+                    if (_health < 0)
+                    {
+                        string thislevel = SceneManager.GetActiveScene().name;
+                        SceneManager.LoadScene(thislevel);
+                    }
+                    else
+                    {
+                        transform.position = RespawnPoint.position;
+                    }
+                        break;
                 }
             case "Finish":
                 {
+                    string nextLevel = other.GetComponent<LevelGoal>().nextLevel;
                     SceneManager.LoadScene(nextLevel);
                     break;
                 }
@@ -30,10 +39,18 @@ public class PlayerStats : MonoBehaviour
                     Destroy(other.gameObject); 
                     break;
                 }
-            case "Heath":
+            case "Health":
                 {
-                    _health++;
-                    Destroy(other.gameObject);
+                    if (_health < 3)
+                    {
+                        _health++;
+                        Destroy(other.gameObject);
+                    }
+                    break;
+                }
+            case "Respawn":
+                {
+                    RespawnPoint.position = other.transform.Find("Point").position;
                     break;
                 }
         }
