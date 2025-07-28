@@ -4,31 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerUiController : MonoBehaviour
+public class PlayerUIController : MonoBehaviour
 {
-    public Image heartImage;
-    public TextMeshProUGUI coinText;
-
+    private Image _health;
+    private TextMeshProUGUI _text;
     // Start is called before the first frame update
+    public void UpdateText(string newtext)
+    {
+        _text.text = newtext;
+    }
     public void StartUI()
     {
-        heartImage = GameObject.Find("HeartImage").GetComponent<Image>();
-        coinText = GameObject.Find("CoinText").GetComponent<TextMeshProUGUI>();
-    }
-
-    public void UpdateHealth(float currentHealth, float maxHealth)
-    {
-        heartImage.fillAmount = currentHealth / maxHealth;
-    }
-
-    public void UpdateCoin(string newText)
-    {
-        coinText.text = newText;
+        _health = GameObject.Find("heart").GetComponent<Image>();
+         _text = GameObject.Find("CoinText").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateHealth(float currentHealth, float maxHealth)
     {
-        
+        _health.fillAmount = currentHealth / maxHealth;
     }
 }
