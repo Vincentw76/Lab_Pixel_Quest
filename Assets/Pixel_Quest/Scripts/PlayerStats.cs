@@ -8,7 +8,10 @@ public class PlayerStats : MonoBehaviour
     public Transform RespawnPoint;
     // Start is called before the first frame update
     public int coinCount = 0;
+    public int coinsInLevel = 0;
     public int _health = 3;
+    public int _maxHealth = 3;
+    private PlayerUIController _playerUIController;
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.tag)
@@ -16,8 +19,10 @@ public class PlayerStats : MonoBehaviour
             case "Death":
                 {
                     _health--;
+                    _playerUIController.UpdateHealth(_health, _maxHealth);
                     if (_health < 0)
                     {
+                        
                         string thislevel = SceneManager.GetActiveScene().name;
                         SceneManager.LoadScene(thislevel);
                     }
@@ -36,6 +41,7 @@ public class PlayerStats : MonoBehaviour
             case "Coin":
                 {
                     coinCount++;
+                    _playerUIController.UpdateText(coinCount + "/" + coinsInLevel);
                     Destroy(other.gameObject); 
                     break;
                 }
@@ -46,6 +52,7 @@ public class PlayerStats : MonoBehaviour
                         _health++;
                         Destroy(other.gameObject);
                     }
+                    _playerUIController.UpdateHealth(_health, _maxHealth);
                     break;
                 }
             case "Respawn":
@@ -55,9 +62,13 @@ public class PlayerStats : MonoBehaviour
                 }
         }
     }
-    void Start()
+    private void Start()
     {
-            
+        coinsInLevel = GameObject.Find("Coins").transform.childCount;
+            _playerUIController = GetComponent<PlayerUIController>();
+        _playerUIController.StartUI();
+        _playerUIController.UpdateHealth(_health, _maxHealth);
+        _playerUIController.UpdateText(coinCount + "/" + coinsInLevel);
     }
 
     // Update is called once per frame
